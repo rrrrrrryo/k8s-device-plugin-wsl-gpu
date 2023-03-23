@@ -59,4 +59,4 @@ RUN if [ -n "${CVE_UPDATES}" ]; then \
         rm -rf /var/lib/apt/lists/*; \
     fi
 
-ENTRYPOINT ["nvidia-device-plugin"]
+ENTRYPOINT ["nvidia-device-plugin", "--cdi-enabled=true", "--driver-root-ctr-path=/"]

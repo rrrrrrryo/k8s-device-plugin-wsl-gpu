@@ -13,6 +13,7 @@ import (
 	"runtime"
 	"strconv"
 	"strings"
+	"os"
 )
 
 var (
@@ -407,10 +408,16 @@ func newDevice(h handle) (device *Device, err error) {
 			return nil, ErrUnsupportedGPU
 		}
 	} else {
-		if minor == nil || busid == nil || uuid == nil {
+		// if minor == nil || busid == nil || uuid == nil {
+		if busid == nil || uuid == nil {
 			return nil, ErrUnsupportedGPU
 		}
-		path = fmt.Sprintf("/dev/nvidia%d", *minor)
+		// path = fmt.Sprintf("/dev/nvidia%d", *minor)
+		if _, err := os.Stat("/dev/dxg"); os.IsNotExist(err){
+			path = fmt.Sprintf("/dev/nvidia%d", minor)		
+		} else {
+			path = "/dev/dxg"
+		}
 	}
 	node, err := numaNode(*busid)
 	assert(err)

@@ -1,2 +1,6 @@
 /nvidia-device-plugin
 /releases
+
+.vscode
+/cmd/nvidia-device-plugin/nvidia-device-plugin
+
